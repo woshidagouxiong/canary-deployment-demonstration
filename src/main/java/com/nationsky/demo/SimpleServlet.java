@@ -15,7 +15,7 @@ public class SimpleServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().print("<h1><font color='green'>Welcome to Stable Version</font></h1>"
+        resp.getWriter().print("<h1><font color='green'>Welcome to New Feature</font></h1>"
                 + "<p><span>Client&nbsp;IP:</span><span>" + getClientIp(req) + "</span></p>");
     }
 
