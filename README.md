@@ -6,12 +6,14 @@ There are different strategies to choose which users will see the new version: a
 
 This demo shows how to implement canary deployment using customized haproxy acl
 
-1. deploy the stable version and new version two environments
-2. expose two routes for stable and new version
-3. customize haproxy-config.template, add acl to frontend public section, forward traffic to different backends by acl rule filter
-example:
-  acl network_specified src 192.168.137.0/24
-  acl host_specified hdr(host) -i cotd-city.192.168.137.3.nip.io
-  use_backend be_http_cotd_new if host_specified network_specified
-  use_backend be_http_cotd_city if host_specified !network_specified
-4. use configmap to replace the openshift router configuration template
+* deploy the stable version and new version two environments  
+* expose two routes for stable and new version  
+* customize haproxy-config.template, add acl to frontend public section, forward traffic to different backends by acl rule filter
+
+  example:  
+  acl network_specified src 192.168.137.0/24  
+  acl host_specified hdr(host) -i cotd-city.192.168.137.3.nip.io  
+  use_backend be_http_cotd_new if host_specified network_specified  
+  use_backend be_http_cotd_city if host_specified !network_specified  
+  
+* use configmap to replace the openshift router configuration template
