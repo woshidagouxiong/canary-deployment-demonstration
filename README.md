@@ -4,8 +4,14 @@ Canary release is a technique to reduce the risk of introducing a new software v
 
 There are different strategies to choose which users will see the new version: a simple strategy is to use a random sample; some companies choose to release the new version to their internal users and employees before releasing to the world; another more sophisticated approach is to choose users based on their profile and other demographics.
 
-This demo shows how to implement canary deploy using customized haproxy acl
+This demo shows how to implement canary deployment using customized haproxy acl
 
 1. deploy the stable version and new version two environments
-2. customize haproxy-config.template
-3. release the new version to the specified ip
+2. expose two routes for stable and new version
+3. customize haproxy-config.template, add acl to frontend public section, forward traffic to different backends by acl rule filter
+example:
+  acl network_specified src 192.168.137.0/24
+  acl host_specified hdr(host) -i cotd-city.192.168.137.3.nip.io
+  use_backend be_http_cotd_new if host_specified network_specified
+  use_backend be_http_cotd_city if host_specified !network_specified
+4. use configmap to replace the openshift router configuration template
