@@ -10,7 +10,7 @@ This demo shows how to implement canary deployment using customized haproxy acl
 * expose two routes for stable and new version  
 * customize haproxy-config.template, add acl to frontend public section, forward traffic to different backends by acl rule filter
 
-  example:  
+  steps:  
   acl network_specified src 192.168.137.0/24  
   acl host_specified hdr(host) -i cotd-city.192.168.137.3.nip.io  
   use_backend be_http_cotd_new if host_specified network_specified  
